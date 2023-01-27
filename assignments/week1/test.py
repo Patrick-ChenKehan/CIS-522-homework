@@ -1,5 +1,5 @@
 # Import your model:
-from model import LinearRegression, GradientDescentLinearRegression
+from model import GradientDescentLinearRegression
 import numpy as np
 
 model = GradientDescentLinearRegression()
