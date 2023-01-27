@@ -2,7 +2,6 @@
 File for LinearRegression and GradientDescentLinearRegression
 """
 import numpy as np
-import torch
 
 
 class LinearRegression:
@@ -67,14 +66,18 @@ class GradientDescentLinearRegression(LinearRegression):
     A linear regression model that uses gradient descent to fit the model.
     """
 
-    def _gradient_descent(self, lr: float = 0.0001) -> None:
-        with torch.no_grad():
-            self.w -= self.w.grad * lr
-            self.b -= self.b.grad * lr
+    def _mse(self, target, input) -> float:
+        return ((target - input) ** 2).mean()
 
-            # Set gradient to zero
-            self.w.grad.zero_()
-            self.b.grad.zero_()
+    def _gradient_descent(
+        self, X: np.ndarray, y: np.ndarray, y_hat: np.ndarray, lr: float = 0.01
+    ) -> None:
+        N = y.shape[0]
+        dw = (-2 / N) * (X.T @ (y.reshape(-1) - y_hat)).reshape(X.shape[1])
+        db = (-2 / N) * (y - y_hat).sum()
+        print(dw.shape)
+        self.w -= lr * dw
+        self.b -= lr * db
 
     def fit(
         self, X: np.ndarray, y: np.ndarray, lr: float = 0.01, epochs: int = 1000
@@ -87,27 +90,18 @@ class GradientDescentLinearRegression(LinearRegression):
             lr (float, optional): learning rate for GD. Defaults to 0.01.
             epochs (int, optional): epochs for GD. Defaults to 1000.
         """
-        # Convert data to tensor
-        X = torch.tensor(X).double()
-        y = torch.tensor(y).double()
-
         # Initialize w and b as tensor
-        self.w = torch.randn(X.shape[1], requires_grad=True, dtype=torch.double)
-        self.b = torch.randn(1, requires_grad=True, dtype=torch.double)
+        self.w = np.random.randn(X.shape[1])
+        self.b = np.random.randn(1)
 
-        # Set criteria for GD
-        criteria = torch.nn.MSELoss()
-        losses = []
         # Start training
         for _ in range(epochs):
             y_hat = self.predict(X)
-            loss = criteria(y, y_hat)
-            loss.backward()
-            self._gradient_descent(lr)
-            losses.append(loss.item())
+            loss = self._mse(y, y_hat)
+            self._gradient_descent(X, y, y_hat, lr)
 
-        self.w = self.w.detach().numpy()
-        self.b = self.b.detach().numpy()
+        # self.w = self.w.detach().numpy()
+        # self.b = self.b.detach().numpy()
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
