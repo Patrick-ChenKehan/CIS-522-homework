@@ -33,7 +33,6 @@ class LinearRegression:
         X = np.hstack((X, np.ones((X.shape[0], 1))))
 
         if np.linalg.det(X.T @ X) != 0:
-            print(X)
             params = np.linalg.inv(X.T @ X) @ X.T @ y
             self.w = params[:-1]
             self.b = params[-1]
@@ -72,15 +71,14 @@ class GradientDescentLinearRegression(LinearRegression):
     def _gradient_descent(
         self, X: np.ndarray, y: np.ndarray, y_hat: np.ndarray, lr: float = 0.01
     ) -> None:
-        N = y.shape[0]
-        dw = (-2 / N) * (X.T @ (y.reshape(-1) - y_hat)).reshape(X.shape[1])
-        db = (-2 / N) * (y - y_hat).sum()
-        print(dw.shape)
+        N = X.shape[0]
+        dw = (-2 / N) * np.dot(X.T, (y.reshape(-1) - y_hat))
+        db = (-2 / N) * (y.reshape(-1) - y_hat).sum()
         self.w -= lr * dw
         self.b -= lr * db
 
     def fit(
-        self, X: np.ndarray, y: np.ndarray, lr: float = 0.01, epochs: int = 1000
+        self, X: np.ndarray, y: np.ndarray, lr: float = 0.001, epochs: int = 10000
     ) -> None:
         """Fit the linear regression model to X with gradient descent
 
@@ -94,12 +92,15 @@ class GradientDescentLinearRegression(LinearRegression):
         self.w = np.random.randn(X.shape[1])
         self.b = np.random.randn(1)
 
+        # Add log
+        X = X - X.mean(axis=0)
         # Start training
         for _ in range(epochs):
             y_hat = self.predict(X)
-            _ = self._mse(y, y_hat)
-            self._gradient_descent(X, y, y_hat, lr)
+            loss = self._mse(y, y_hat)
 
+            self._gradient_descent(X, y, y_hat, lr)
+        print(loss)
         # self.w = self.w.detach().numpy()
         # self.b = self.b.detach().numpy()
 
