@@ -27,15 +27,14 @@ class LinearRegression:
             RuntimeError: LinAlgError. Matrix is Singular. No analytical solution.
         """
         # Append 1 to X
-        X = np.vstack((X, np.ones((1, X.shape[1])))).T
+        X = np.hstack((X, np.ones((X.shape[0], 1))))
 
         if np.linalg.det(X.T @ X) != 0:
+            print(X)
             params = np.linalg.inv(X.T @ X) @ X.T @ y
-            # print(self.params)
             self.w = params[:-1]
             self.b = params[-1]
         else:
-            # print("LinAlgError. Matrix is Singular. No analytical solution.")
             raise RuntimeError(
                 "LinAlgError. Matrix is Singular. No analytical solution.")
             
@@ -53,7 +52,7 @@ class LinearRegression:
             np.ndarray: Prdiction of target
         """
         
-        if not self.w:
+        if self.w is None:
             raise RuntimeError("Model not fitted")
         
         return X @ self.w + self.b
@@ -64,7 +63,7 @@ class GradientDescentLinearRegression(LinearRegression):
     A linear regression model that uses gradient descent to fit the model.
     """
     
-    def _gradient_descent(self, lr: float = 0.01) -> None:
+    def _gradient_descent(self, lr: float = 0.0001) -> None:
         with torch.no_grad():
             self.w -= self.w.grad * lr
             self.b -= self.b.grad * lr
@@ -85,26 +84,26 @@ class GradientDescentLinearRegression(LinearRegression):
             epochs (int, optional): epochs for GD. Defaults to 1000.
         """
         # Convert data to tensor
-        X = torch.Tensor(X)
-        y = torch.Tensor(y)
+        X = torch.tensor(X).double()
+        y = torch.tensor(y).double()
         
         # Initialize w and b as tensor
-        self.w = torch.randn(X.shape[1], requires_grad=True)
-        self.b = torch.randn(1, requires_grad=True)
+        self.w = torch.randn(X.shape[1], requires_grad=True, dtype=torch.double)
+        self.b = torch.randn(1, requires_grad=True, dtype=torch.double)
         
         # Set criteria for GD
         criteria = torch.nn.MSELoss()
-        
+        losses = []
         # Start training
         for epoch in range(epochs):
             y_hat = self.predict(X)
             loss = criteria(y, y_hat)
             loss.backward()
             self._gradient_descent(lr)
+            losses.append(loss.item())
             
         self.w = self.w.detach().numpy()
         self.b = self.b.detach().numpy()
-    
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
