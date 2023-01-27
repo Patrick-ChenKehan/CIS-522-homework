@@ -1,10 +1,6 @@
 # Import your model:
-from model import LinearRegression, GradientDescentLinearRegression
-from sklearn.datasets import fetch_california_housing
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
+from model import GradientDescentLinearRegression
 import numpy as np
-from typing import Tuple
 
 model = GradientDescentLinearRegression()
 

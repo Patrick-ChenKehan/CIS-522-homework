@@ -97,7 +97,7 @@ class GradientDescentLinearRegression(LinearRegression):
         # Start training
         for _ in range(epochs):
             y_hat = self.predict(X)
-            loss = self._mse(y, y_hat)
+            _ = self._mse(y, y_hat)
             self._gradient_descent(X, y, y_hat, lr)
 
         # self.w = self.w.detach().numpy()
