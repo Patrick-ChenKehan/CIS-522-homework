@@ -1,3 +1,6 @@
+"""
+File for LinearRegression and GradientDescentLinearRegression
+"""
 import numpy as np
 import torch
 
@@ -96,7 +99,7 @@ class GradientDescentLinearRegression(LinearRegression):
         criteria = torch.nn.MSELoss()
         losses = []
         # Start training
-        for epoch in range(epochs):
+        for _ in range(epochs):
             y_hat = self.predict(X)
             loss = criteria(y, y_hat)
             loss.backward()
