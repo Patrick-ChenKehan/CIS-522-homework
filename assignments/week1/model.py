@@ -121,6 +121,5 @@ class GradientDescentLinearRegression(LinearRegression):
         """
         if self.w is None:
             raise RuntimeError("Model not fitted")
-
         # Compute prediction
         return X @ self.w + self.b
