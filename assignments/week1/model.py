@@ -71,9 +71,12 @@ class GradientDescentLinearRegression(LinearRegression):
     def _gradient_descent(
         self, X: np.ndarray, y: np.ndarray, y_hat: np.ndarray, lr: float = 0.01
     ) -> None:
+        # Compute the gradient
         N = X.shape[0]
         dw = (-2 / N) * np.dot(X.T, (y.reshape(-1) - y_hat))
         db = (-2 / N) * (y.reshape(-1) - y_hat).sum()
+
+        # Update weight and bias
         self.w -= lr * dw
         self.b -= lr * db
 
@@ -98,11 +101,9 @@ class GradientDescentLinearRegression(LinearRegression):
         for _ in range(epochs):
             y_hat = self.predict(X)
             loss = self._mse(y, y_hat)
-
+            # Apply GD
             self._gradient_descent(X, y, y_hat, lr)
         print(loss)
-        # self.w = self.w.detach().numpy()
-        # self.b = self.b.detach().numpy()
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -121,4 +122,5 @@ class GradientDescentLinearRegression(LinearRegression):
         if self.w is None:
             raise RuntimeError("Model not fitted")
 
+        # Compute prediction
         return X @ self.w + self.b
