@@ -249,4 +249,4 @@ poetry.toml
 # End of https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks,visualstudiocode,macos,linux
 
 .vscode/
-assignments/data/
+data/
