@@ -31,7 +31,7 @@ class MLP(nn.Module):
         self.num_classes = num_classes
         self.hidden_size = hidden_size
         self.hidden_count = hidden_count
-        self.activation = activation
+        self.activation = activation()
         self.initializer = initializer
         self.layers = nn.ModuleList()
 
