@@ -34,8 +34,8 @@ class MLP(nn.Module):
         self.activation = activation()
         self.initializer = initializer
         self.layers = nn.ModuleList()
-        self.bn = nn.BatchNorm1d(hidden_size)
-        for i in range(hidden_count):
+        # self.bn = nn.BatchNorm1d(hidden_size)
+        for _ in range(hidden_count):
             # next_num_inputs = hidden_size
             layer = nn.Linear(input_size, hidden_size)
             layer.weight = initializer(layer.weight)
@@ -64,7 +64,7 @@ class MLP(nn.Module):
         # Get activations of each layer
         for layer in self.layers:
             x = self.activation(layer(x))
-        x = self.bn(x)
+        # x = self.bn(x)
         # Get outputs
         x = self.out(x)
 
