@@ -17,7 +17,6 @@ class MLP(nn.Module):
     ) -> None:
         """
         Initialize the MLP.
-
         Arguments:
             input_size: The dimension D of the input data.
             hidden_size: The number of neurons H in the hidden layer.
@@ -34,8 +33,7 @@ class MLP(nn.Module):
         self.activation = activation()
         self.initializer = initializer
         self.layers = nn.ModuleList()
-        # self.bn = nn.BatchNorm1d(hidden_size)
-        # self.dropout = nn.Dropout(0.15)
+
         for _ in range(hidden_count):
             # next_num_inputs = hidden_size
             layer = nn.Linear(input_size, hidden_size)
@@ -52,10 +50,8 @@ class MLP(nn.Module):
     def forward(self, x: torch.tensor) -> torch.tensor:
         """
         Forward pass of the network.
-
         Arguments:
             x: The input data.
-
         Returns:
             The output of the network.
         """
@@ -64,7 +60,8 @@ class MLP(nn.Module):
 
         # Get activations of each layer
         for layer in self.layers:
-            self.activation(layer(x))
+            x = self.activation(layer(x))
+
         # Get outputs
         x = self.out(x)
 
