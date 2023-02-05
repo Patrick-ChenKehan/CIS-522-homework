@@ -35,12 +35,15 @@ class MLP(nn.Module):
         self.initializer = initializer
         self.layers = nn.ModuleList()
 
-        for _ in range(hidden_count):
+        for i in range(hidden_count):
             # next_num_inputs = hidden_size
             layer = nn.Linear(input_size, hidden_size)
             layer.weight = initializer(layer.weight)
             layer.bias = torch.nn.Parameter(torch.tensor(0.0))
-            self.layers += [layer, nn.Dropout(0.15)]
+            if i == 0:
+                self.layers += [layer, nn.BatchNorm1d(hidden_size), nn.Dropout(0.3)]
+            else:
+                self.layers += [layer, nn.BatchNorm1d(hidden_size), nn.Dropout(0.15)]
             input_size = hidden_size
 
         # Create final layer
