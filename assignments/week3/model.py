@@ -40,7 +40,7 @@ class MLP(nn.Module):
             layer = nn.Linear(input_size, hidden_size)
             layer.weight = initializer(layer.weight)
             layer.bias = torch.nn.Parameter(torch.tensor(0.01))
-            self.layers += [layer, nn.BatchNorm1d(64), nn.Dropout2d(0.15)]
+            self.layers += [layer, nn.BatchNorm1d(64)]
             input_size = hidden_size
 
         # Create final layer
