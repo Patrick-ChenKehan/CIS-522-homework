@@ -47,7 +47,7 @@ class MLP(nn.Module):
         self.out = nn.Linear(input_size, num_classes)
         self.out.weight = initializer(self.out.weight)
         self.out.bias = torch.nn.Parameter(torch.tensor(0.01))
-        
+
     def forward(self, x: torch.tensor) -> torch.tensor:
         """
         Forward pass of the network.
