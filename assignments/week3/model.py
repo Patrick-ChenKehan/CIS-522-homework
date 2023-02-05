@@ -34,7 +34,7 @@ class MLP(nn.Module):
         self.activation = activation()
         self.initializer = initializer
         self.layers = nn.ModuleList()
-        # self.bn = nn.BatchNorm1d(hidden_size)
+        self.bn = nn.BatchNorm1d(hidden_size)
         for _ in range(hidden_count):
             # next_num_inputs = hidden_size
             layer = nn.Linear(input_size, hidden_size)
