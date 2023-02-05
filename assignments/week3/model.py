@@ -39,15 +39,15 @@ class MLP(nn.Module):
             # next_num_inputs = hidden_size
             layer = nn.Linear(input_size, hidden_size)
             layer.weight = initializer(layer.weight)
-            layer.bias = torch.nn.init.normal_(layer.bias)
+            layer.bias = torch.nn.Parameter(torch.tensor(0.01))
             self.layers += [layer]
             input_size = hidden_size
 
         # Create final layer
         self.out = nn.Linear(input_size, num_classes)
         self.out.weight = initializer(self.out.weight)
-        self.out.bias = torch.nn.init.normal_(self.out.bias)
-
+        self.out.bias = torch.nn.Parameter(torch.tensor(0.01))
+        
     def forward(self, x: torch.tensor) -> torch.tensor:
         """
         Forward pass of the network.
