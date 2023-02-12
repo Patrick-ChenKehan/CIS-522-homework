@@ -4,6 +4,8 @@ from torch.optim.lr_scheduler import _LRScheduler
 
 
 class CustomLRScheduler(_LRScheduler):
+    """Customed LR Scheduler, modified from COSINEANNEALINGWARMRESTARTS"""
+
     def __init__(self, optimizer, T, eta_min=0, last_epoch=-1):
         """
         Create a new scheduler.
