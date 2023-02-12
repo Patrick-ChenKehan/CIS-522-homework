@@ -18,8 +18,7 @@ class CustomLRScheduler(_LRScheduler):
         super(CustomLRScheduler, self).__init__(optimizer, last_epoch)
 
     def get_lr(self) -> List[float]:
-        # Note to students: You CANNOT change the arguments or return type of
-        # this function (because it is called internally by Torch)
+        """Return lr for the weight"""
 
         return [
             self.eta_min
