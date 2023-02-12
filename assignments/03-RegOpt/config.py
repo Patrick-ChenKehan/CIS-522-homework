@@ -7,7 +7,6 @@ from torchvision import transforms
 
 
 class CONFIG:
-
     batch_size = 64
     num_epochs = 20
     initial_learning_rate = 0.001
