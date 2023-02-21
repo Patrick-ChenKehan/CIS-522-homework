@@ -9,7 +9,7 @@ class CONFIG:
     batch_size = 64
     num_epochs = 10
     initial_learning_rate = 0.001
-    initial_weight_decay = 0.01
+    initial_weight_decay = 0
 
     lrs_kwargs = {"T": 1000, "eta_min": 1e6}
 
