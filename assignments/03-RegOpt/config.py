@@ -2,14 +2,14 @@ from typing import Callable
 import torch
 import torch.optim
 import torch.nn as nn
-from torchvision.transforms import Compose, Normalize, ToTensor
+from torchvision.transforms import Compose, Normalize, ToTensor, RandAugment
 
 
 class CONFIG:
     batch_size = 64
     num_epochs = 12
     initial_learning_rate = 0.001
-    initial_weight_decay = 0
+    initial_weight_decay = 0.01
 
     lrs_kwargs = {"T": 1000, "eta_min": 1e6}
 
@@ -23,7 +23,7 @@ class CONFIG:
 
     transforms = Compose(
         [
-            # transforms.RandAugment(),
+            RandAugment(),
             ToTensor(),
             Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
         ]
