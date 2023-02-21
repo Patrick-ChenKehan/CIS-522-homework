@@ -2,7 +2,7 @@ from typing import Callable
 import torch
 import torch.optim
 import torch.nn as nn
-from torchvision.transforms import Compose, Normalize, ToTensor, RandAugment
+from torchvision.transforms import Compose, Normalize, ToTensor, RandomRotation
 
 
 class CONFIG:
@@ -23,7 +23,7 @@ class CONFIG:
 
     transforms = Compose(
         [
-            RandAugment(),
+            RandomRotation(15),
             ToTensor(),
             Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
         ]
