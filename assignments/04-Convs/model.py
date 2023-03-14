@@ -8,10 +8,10 @@ class Model(torch.nn.Module):
 
     def __init__(self, num_channels: int, num_classes: int) -> None:
         super(Model, self).__init__()
-        self.conv1 = nn.Conv2d(num_channels, 8, 5)
+        self.conv1 = nn.Conv2d(num_channels, 8, 3)
         self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(8, 16, 5)
-        self.fc1 = nn.Linear(16 * 5 * 5, num_classes)
+        self.conv2 = nn.Conv2d(8, 16, 3)
+        self.fc1 = nn.Linear(16 * 6 * 6, num_classes)
         # self.fc2 = nn.Linear(120, 84)
         # self.fc3 = nn.Linear(120, num_classes)
         self.bn1 = nn.BatchNorm2d(8)
