@@ -10,12 +10,12 @@ class Model(torch.nn.Module):
         super(Model, self).__init__()
         self.conv1 = nn.Conv2d(num_channels, 8, 5)
         self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(8, 12, 5)
-        self.fc1 = nn.Linear(12 * 5 * 5, 120)
+        self.conv2 = nn.Conv2d(8, 14, 5)
+        self.fc1 = nn.Linear(14 * 5 * 5, 120)
         # self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(120, num_classes)
         self.bn1 = nn.BatchNorm2d(8)
-        self.bn2 = nn.BatchNorm2d(12)
+        self.bn2 = nn.BatchNorm2d(14)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward function for"""
