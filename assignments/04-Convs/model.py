@@ -18,7 +18,7 @@ class Model(torch.nn.Module):
         self.bn2 = nn.BatchNorm2d(16)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Forward function for the model """
+        """Forward function for the model"""
         x = self.pool(self.bn1(F.relu(self.conv1(x))))
         # x = self.pool(self.bn2(F.relu(self.conv2(x))))
         x = torch.flatten(x, 1)  # flatten all dimensions except batch
