@@ -22,6 +22,5 @@ class Model(torch.nn.Module):
         x = self.pool(self.bn1(F.relu(self.conv1(x))))
         x = self.pool(self.bn2(F.relu(self.conv2(x))))
         x = torch.flatten(x, 1)  # flatten all dimensions except batch
-        # x = F.relu(self.fc1(x))
         x = self.fc1(x)
         return x
