@@ -11,15 +11,15 @@ class Model(torch.nn.Module):
         self.conv1 = nn.Conv2d(num_channels, 8, 5)
         # torch.nn.init.xavier_normal_(self.conv1.weight)
         self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(8, 16, 3)
+        self.conv2 = nn.Conv2d(8, 14, 3)
         # torch.nn.init.xavier_normal_(self.conv2.weight)
-        self.fc1 = nn.Linear(16 * 6 * 6, 120)
+        self.fc1 = nn.Linear(14 * 6 * 6, 120)
         # torch.nn.init.xavier_normal_(self.fc1.weight)
         # self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(120, num_classes)
         # torch.nn.init.xavier_normal_(self.fc3.weight)
         self.bn1 = nn.BatchNorm2d(8)
-        self.bn2 = nn.BatchNorm2d(16)
+        self.bn2 = nn.BatchNorm2d(14)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward function for the model"""
@@ -30,6 +30,8 @@ class Model(torch.nn.Module):
         x = self.fc3(x)
         return x
 
+
+# Comment
 
 # Comment
 

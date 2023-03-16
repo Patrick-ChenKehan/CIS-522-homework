@@ -7,5 +7,5 @@ do
     git add .
     git commit -m 'improve'
     git push
-    sleep 250
+    sleep 200
 done
