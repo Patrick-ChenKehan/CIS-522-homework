@@ -2,7 +2,10 @@
 
 while True
 do
-    
-    
+    python3 submit.py
+    black .
+    git add .
+    git commit -m 'improve'
+    git push
     sleep 250
 done
