@@ -11,6 +11,6 @@ class CONFIG:
 
     optimizer_factory: Callable[
         [nn.Module], torch.optim.Optimizer
-    ] = lambda model: torch.optim.Adam(model.parameters(), lr=1e-2)
+    ] = lambda model: torch.optim.Adam(model.parameters(), lr=3e-3)
 
     transforms = Compose([ToTensor()])
