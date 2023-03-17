@@ -8,7 +8,7 @@ class Model(torch.nn.Module):
 
     def __init__(self, num_channels: int, num_classes: int) -> None:
         super(Model, self).__init__()
-        self.conv1 = nn.Conv2d(num_channels, 8, 5)
+        self.conv1 = nn.Conv2d(num_channels, 8, 3)
         # torch.nn.init.xavier_normal_(self.conv1.weight)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(8, 16, 3)
@@ -30,6 +30,8 @@ class Model(torch.nn.Module):
         x = self.fc3(x)
         return x
 
+
+# Comment
 
 # Comment
 
