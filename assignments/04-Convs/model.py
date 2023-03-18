@@ -13,10 +13,10 @@ class Model(torch.nn.Module):
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(8, 12, 3)
         # torch.nn.init.xavier_normal_(self.conv2.weight)
-        self.fc1 = nn.Linear(12 * 6 * 6, 32)
+        self.fc1 = nn.Linear(12 * 6 * 6, 64)
         # torch.nn.init.xavier_normal_(self.fc1.weight)
         # self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(32, num_classes)
+        self.fc3 = nn.Linear(64, num_classes)
         self.bn1 = nn.BatchNorm2d(8)
         self.bn2 = nn.BatchNorm2d(12)
 
@@ -27,43 +27,4 @@ class Model(torch.nn.Module):
         x = torch.flatten(x, 1)  # flatten all dimensions except batch
         x = F.relu(self.fc1(x))
         x = self.fc3(x)
-        return x
-
-
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
-# Comment
+        return x  # Comment
