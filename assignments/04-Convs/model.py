@@ -8,7 +8,7 @@ class Model(torch.nn.Module):
 
     def __init__(self, num_channels: int, num_classes: int) -> None:
         super(Model, self).__init__()
-        self.conv1 = nn.Conv2d(num_channels, 8, 3)
+        self.conv1 = nn.Conv2d(num_channels, 16, 5)
         # torch.nn.init.xavier_normal_(self.conv1.weight)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(8, 12, 3)
@@ -23,13 +23,14 @@ class Model(torch.nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward function for the model"""
         x = self.pool(self.bn1(F.relu(self.conv1(x))))
-        x = self.pool(self.bn2(F.relu(self.conv2(x))))
+        # x = self.pool(self.bn2(F.relu(self.conv2(x))))
         x = torch.flatten(x, 1)  # flatten all dimensions except batch
         x = F.relu(self.fc1(x))
         x = self.fc3(x)
         return x  # Comment
 
 
+# Comment
 # Comment
 # Comment
 # Comment
