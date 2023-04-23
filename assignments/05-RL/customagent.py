@@ -13,6 +13,8 @@ class Agent:
         self.action_space = action_space
         self.observation_space = observation_space
         self.q_table = np.zeros((20,) * observation_space.shape[0] + (action_space.n,))
+        self.last_state = None
+        self.last_action = None
 
     def act(self, observation: gym.spaces.Box) -> gym.spaces.Discrete:
         """act returns an action based on the given observation.
@@ -24,7 +26,10 @@ class Agent:
             gym.spaces.Discrete: action to take
         """
         state = self._discretize(observation)
-        return np.argmax(self.q_table[state])
+        action = np.argmax(self.q_table[state])
+        self.last_state = state
+        self.last_action = action
+        return action
 
     def learn(
         self,
@@ -41,21 +46,16 @@ class Agent:
             terminated (bool): termination status from the environment
             truncated (bool): truncation status from the environment
         """
+        # state = self._discretize(observation)
+        # next_state = None
+
         state = self._discretize(observation)
-        next_state = None
-        action = self.act(observation)
-        if not terminated and not truncated:
-            next_state = self._discretize(observation)
-            self.q_table[state + (action,)] += 0.1 * (
-                reward
-                + 0.9 * np.max(self.q_table[next_state])
-                - self.q_table[state + (action,)]
-            )
-        else:
-            print(terminated, truncated, reward)
-            self.q_table[state + (action,)] += 0.1 * (
-                reward - self.q_table[state + (action,)]
-            )
+
+        self.q_table[self.last_state + (self.last_action,)] += 0.1 * (
+            reward
+            + 0.99 * np.max(self.q_table[state])
+            - self.q_table[self.last_state + (self.last_action,)]
+        )
 
     def _discretize(self, observation: gym.spaces.Box) -> int:
         bins = [
