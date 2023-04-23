@@ -5,6 +5,8 @@ import numpy as np
 
 
 class Agent:
+    """Agent is a custom agent for the lunar lander player RL problem.
+    """
     def __init__(
         self, action_space: gym.spaces.Discrete, observation_space: gym.spaces.Box
     ):
@@ -13,6 +15,14 @@ class Agent:
         self.q_table = np.zeros((20,) * observation_space.shape[0] + (action_space.n,))
 
     def act(self, observation: gym.spaces.Box) -> gym.spaces.Discrete:
+        """act returns an action based on the given observation.
+
+        Args:
+            observation (gym.spaces.Box): observations from the environment
+
+        Returns:
+            gym.spaces.Discrete: action to take
+        """
         state = self._discretize(observation)
         return np.argmax(self.q_table[state])
 
@@ -23,6 +33,14 @@ class Agent:
         terminated: bool,
         truncated: bool,
     ) -> None:
+        """Learn from the given observation, reward, and termination status.
+
+        Args:
+            observation (gym.spaces.Box): observations from the environment
+            reward (float): reward from the environment
+            terminated (bool): termination status from the environment
+            truncated (bool): truncation status from the environment
+        """
         state = self._discretize(observation)
         next_state = None
         action = self.act(observation)
