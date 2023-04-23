@@ -5,8 +5,8 @@ import numpy as np
 
 
 class Agent:
-    """Agent is a custom agent for the lunar lander player RL problem.
-    """
+    """Agent is a custom agent for the lunar lander player RL problem."""
+
     def __init__(
         self, action_space: gym.spaces.Discrete, observation_space: gym.spaces.Box
     ):
